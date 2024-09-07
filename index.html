@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Display</title>
+    <style>
+      ::-webkit-scrollbar {
+        width: 0px;
+      }
+      iframe {
+        display: block;
+      }
+      body {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        background-color: #222;
+        color: #eee;
+      }
+      main {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+      }
+      header {
+        padding: 5px 20px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        background-color: #444;
+        column-gap: 2rem;
+        input[type="number"] {
+          width: 10rem;
+        }
+      }
+      h2 {
+        line-height: 0;
+        display: inline-block;
+        font-size: medium;
+      }
+      div {
+        display: inline-block;
+      }
+      section {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+      #laptop1 {
+        zoom: 0.45;
+      }
+      #laptop2 {
+        zoom: 0.45;
+      }
+      #iphone14_pro_max {
+        zoom: 0.7;
+      }
+      #ipad_pro {
+        zoom: 0.5;
+      }
+      input[type="number"] {
+        display: inline-block;
+        width: 5rem;
+      }
+      input {
+        border-radius: 0.3rem;
+        padding: 2px 4px;
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <main id="main">
+      <header>
+        <label id="pageDetail"></label>
+        <input
+          type="number"
+          min="0.1"
+          step="0.01"
+          placeholder="scale viewport"
+          onchange="scale(event,'main')"
+        />
+        <div>
+          <label for="host">Host</label>
+          <input
+            type="text"
+            id="host"
+            placeholder="http://localhost:3000"
+            onkeyup="update()"
+            value="http://localhost:3000"
+          />
+        </div>
+      </header>
+      <section>
+        <div>
+          <h2>1920x1080</h2>
+          <input
+            type="number"
+            min="0.1"
+            step="0.01"
+            placeholder="scale"
+            onchange="scale(event,'laptop1')"
+          />
+          <iframe width="1920" height="1080" id="laptop1"></iframe>
+        </div>
+        <div>
+          <h2>1280x1024</h2>
+          <input
+            type="number"
+            min="0.1"
+            step="0.01"
+            placeholder="scale"
+            onchange="scale(event,'laptop2')"
+          />
+          <iframe width="1280" height="1024" id="laptop2"></iframe>
+        </div>
+        <div>
+          <h2>Mobile 320x480</h2>
+          <input
+            type="number"
+            min="0.1"
+            step="0.01"
+            placeholder="scale"
+            onchange="scale(event,'mobile1')"
+          />
+          <iframe width="320" height="480" id="mobile1"></iframe>
+        </div>
+        <div>
+          <h2>iphoneSE 375x667</h2>
+          <input
+            type="number"
+            min="0.1"
+            step="0.01"
+            placeholder="scale"
+            onchange="scale(event,'iphone_se')"
+          />
+          <iframe width="375" height="667" id="iphone_se"></iframe>
+        </div>
+        <div>
+          <h2>14 pro max 430x932</h2>
+          <input
+            type="number"
+            min="0.1"
+            step="0.01"
+            placeholder="scale"
+            onchange="scale(event,'iphone14_pro_max')"
+          />
+          <iframe width="430" height="932" id="iphone14_pro_max"></iframe>
+        </div>
+        <div>
+          <h2>ipad pro 1024x1366</h2>
+          <input
+            type="number"
+            min="0.1"
+            step="0.01"
+            placeholder="scale"
+            onchange="scale(event,'ipad_pro')"
+          />
+          <iframe width="1024" height="1355" id="ipad_pro"></iframe>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const pageDetail = document.getElementById("pageDetail");
+      const host = document.getElementById("host");
+      const mobile = document.getElementById("mobile1");
+      const iphone_se = document.getElementById("iphone_se");
+      const iphone14_pro_max = document.getElementById("iphone14_pro_max");
+      const ipad_pro = document.getElementById("ipad_pro");
+      const laptop = document.getElementById("laptop1");
+      const laptop2 = document.getElementById("laptop2");
+      update();
+      function yourViewport() {
+        pageDetail.innerText = `Your viewport WxH (${
+          document.getElementById("main").getBoundingClientRect().width
+        } x ${document.getElementById("main").getBoundingClientRect().height})`;
+      }
+      function update() {
+        yourViewport();
+        mobile.src = host.value;
+        iphone_se.src = host.value;
+        iphone14_pro_max.src = host.value;
+        ipad_pro.src = host.value;
+        laptop.src = host.value;
+        laptop2.src = host.value;
+      }
+      function scale(e, id) {
+        const scaleValue = e.target.value;
+        document.getElementById(id).style.zoom = scaleValue;
+      }
+      window.addEventListener("resize", yourViewport);
+    </script>
+  </body>
+</html>
